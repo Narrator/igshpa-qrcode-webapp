@@ -1,0 +1,178 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a ui-sref="home">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="movements.list">Teams</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="movements.create">{{subPage}}</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+              data-toggle="dropdown" dropdown-menu-hover data-delay="1000"
+              data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li ui-sref-active="active">
+          <a ui-sref="movements.create">
+            <i class="icon-plus"></i> New Team </a>
+        </li>
+        <!--<li>
+          <a href="#">
+            <i class="icon-present"></i> New Event <span
+            class="badge badge-success">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-basket"></i> New order </a>
+        </li>-->
+        <li class="divider">
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:'pending',revisions:undefined})">
+            <i class="icon-flag"></i> Pending <span
+            class="badge badge-danger">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:undefined,revisions:'pending'})">
+            <i class="icon-users"></i> Revisions <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:undefined,revisions:undefined})">
+            <i class="icon-users"></i> All <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<h3 class="page-title">
+  {{subPage}} Movement
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="portlet box green ">
+        <div class="portlet-title">
+          <div class="caption"><i class="fa fa-list"></i> {{subPage}} Movement Form</div>
+          <div class="tools">
+            <a href="" class="collapse" data-original-title="" title=""> </a>
+            <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+            <a href="" class="reload" data-original-title="" title=""> </a>
+            <a href="" class="remove" data-original-title="" title=""> </a>
+          </div>
+        </div>
+        <div class="portlet-body form">
+
+          <form class="form-horizontal" role="form">
+            <div class="form-body">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Title</label>
+
+                <div class="col-md-9">
+                  <input type="text" ng-model="movement.title" class="form-control" placeholder="Enter text" required>
+                  <span class="help-block">A block of help text.</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Description</label>
+
+                <div class="col-md-9">
+                  <textarea class="form-control" rows="3" ng-model="movement.description" required></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Steps Target</label>
+
+                <div class="col-md-9">
+                  <input type="text" class="form-control input-inline input-medium" placeholder="Enter text"
+                         ng-model="movement.stepsTarget" required>
+                  <span class="help-inline">Inline help.</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Start Date</label>
+
+                <div class="col-md-3">
+                  <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="movement.startDate"
+                           is-open="opened.startDate" min-date="minDate" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event,'startDate')"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">End Date</label>
+
+                <div class="col-md-3">
+                  <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="movement.endDate"
+                           is-open="opened.endDate" min-date="minDate" max-date="'2015-06-22'"
+                           datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true"
+                           close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event,'endDate')">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Status</label>
+
+              <div class="col-md-3">
+                <select class="form-control" ng-model="movement.status">
+                  <option>active</option>
+                  <option>pending</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Thumbnail</label>
+
+              <div class="col-md-3"><img ng-src="{{movementImage}}" height="200"  fallback-src loading-src/></div>
+              <div class="col-md-3">
+                <button ng-click="openTab(movement._picture.url)" target="_blank"> View Full Size</button>
+                <button ng-click="clickToOpen()">Edit Image</button>
+                <button ng-click="refreshImage()">Refresh Image</button>
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                  <button type="submit" ng-click="save(movement)" ng-disabled="submitDisabled()" class="btn green">
+                    Save
+                  </button>
+                  <button type="button" class="btn default">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

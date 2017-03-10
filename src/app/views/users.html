@@ -1,0 +1,231 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a ui-sref="home">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="users.list({status:undefined,revisions:undefined})">Users</a>
+      <i class="fa fa-angle-right" ng-show="subPage"></i>
+    </li>
+    <li ng-show="subPage">
+      <a ui-sref="users.list">{{subPage}}</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+              data-toggle="dropdown" dropdown-menu-hover data-delay="1000"
+              data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li ui-sref-active="active">
+          <a ui-sref="users.create">
+            <i class="icon-plus"></i> New User</a>
+        </li>
+        <li class="divider">
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.list({role:'admin'})">
+            <i class="icon-flag"></i> Admin Users
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.list({role:undefined})">
+            <i class="icon-users"></i> All Users <!--<span
+            class="badge badge-warning">12</span>-->
+          </a>
+        </li>
+        <li>
+          <a ng-click="mascotFeedsToSelected()" ng-if="selection.length > 0">
+            <i class="icon-bell"></i> Notify Users
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.mascotFeedsToSelectedList">
+            <i class="icon-bell"></i> Sent Notifications
+          </a>
+        </li>
+        <li>
+          <a ng-csv="dataDow" filename="users.csv" csv-header="['Name', 'Created Date',      'Device','Total Steps','Steps Today','Average Steps','Last Seen','Today Goal', 'Work Email','Sign In Email','Memberships','Movements Joined']">
+            <i class="fa fa-fw fa-download"></i> Download As CSV
+          </a>
+        </li>
+        <li>
+          <a ng-click="emailToSelected()" ng-if="selection.length > 0">
+            <i class="fa fa-envelope"></i> Email Users
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<h3 class="page-title">
+  Users
+</h3>
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <!--<div class="note note-danger">
+        <p>
+          NOTE: The below datatable is not connected to a real database so the filter and sorting is just simulated for demo purposes only.
+        </p>
+      </div>-->
+      <!-- Begin: life time stats -->
+      <div class="portlet  box blue">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="fa fa-list"></i>{{subPage ? subPage : 'All Users'}}
+          </div>
+        </div>
+        <div class="portlet-body">
+          <!--<p class="table-container">           -->
+          <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+            <thead>
+            <tr role="row" class="heading">
+              <th width="2%">
+                <input type="checkbox" ng-checked="selection.length === allUsers.length" ng-click="toggleSelectionAll()" />
+              </th>
+              <th width="20%">
+                Title
+              </th>
+              <th width="13%">
+                Created
+              </th>
+              <th width="10%">
+              Device
+              </th>
+              <th width="5%">
+                Steps Today
+              </th>
+              <th width="5%">
+                Goal
+              </th>
+              <th width="5%">
+                Total Steps
+              </th>
+              <!-- <th width="10%">
+                Emails
+              </th> -->
+              <th width="10%">
+                Avg Steps
+              </th>
+              <th width="10%">
+                Last Seen
+              </th>
+            </tr>
+            <tr role="row" class="filter">
+              <td>
+              </td>
+              <td>
+                <input type="text" class="form-control form-filter input-sm" name="username" ng-model="searchQuery" ng-change="searchQueryBuilder()"></br>
+                <div class="margin-bottom-5">
+                  <button class="btn btn-sm yellow filter-submit margin-bottom" ng-click="search(where)" style="width: 61%;">
+                  <i class="fa fa-search"></i> Search
+                  </button></br>
+                <button class="btn btn-sm red filter-cancel" ng-click="reset()"style="margin: 7px 0px 0px 0px;width: 61%;"><i class="fa fa-times"></i> Reset
+                </button>
+                </div>
+
+              </td>
+              <td>
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+                         ng-model="where.created.gte"
+                         is-open="opened.createdGt" min-date="minDate" datepicker-options="dateOptions"
+                         date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event,'createdGt')"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+                         ng-model="where.created.lte"
+                         is-open="opened.createdLt" min-date="minDate" datepicker-options="dateOptions"
+                         date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event,'createdLt')"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </td>
+              <td>
+                  <select name="currentDevice" class="form-control form-filter input-sm" ng-model="where.currentDevice">
+                    <option value="">All</option>
+                    <option value="android">Android</option>
+                    <option value="ios">IOs</option>
+                    <option value="noDevice">No Device</option>
+                  </select>
+              </td>
+              <td>
+                  <input type="number" class="form-control" placeholder="Enter lower limit" ng-model='stepsToday.gte' min='0' style="width: 100px;">
+                  <input type="number" class="form-control" placeholder="Enter upper limit" ng-model='stepsToday.lte' style="width: 100px; margin: 7px 0px 0px 0px;">
+              </td>
+              <td>
+              </td>
+              <td>
+                   <input type="number" class="form-control" placeholder="Enter lower limit" ng-model='totalSteps.gte' min='0' style="width: 100px;">
+                  <input type="number" class="form-control" placeholder="Enter upper limit" ng-model='totalSteps.lte' style="width: 100px; margin: 7px 0px 0px 0px;">
+              </td>
+              <!-- <td>
+              </td> -->
+              <td>
+                <select ng-model="averageStepsSort" name="Order" class="form-control form-filter input-sm" ng-change="sortChange()" style="width: 100px;">
+                  <option value="_fitness.averageSteps ASC">ASCEND</option>
+                  <option value="_fitness.averageSteps DESC">DESCEND</option>
+                  <option value="undefined" selected>UNSORT</option>
+                </select></br>
+                <input type="number" class="form-control" placeholder="Enter lower limit" ng-model='averageSteps.gte' min='0' style="width: 100px;">
+                <input type="number" class="form-control" placeholder="Enter upper limit" ng-model='averageSteps.lte' style="width: 100px; margin: 7px 0px 0px 0px;">
+              </td>
+              <td>
+                <select ng-model="lastSeenSort" name="lastAppOpenedOrder" class="form-control form-filter input-sm" ng-change="sortChange()" style="width: 100px;">
+                  <option value="lastAppOpened ASC">ASCEND</option>
+                  <option value="lastAppOpened DESC">DESCEND</option>
+                  <option value="undefined" selected>UNSORT</option>
+                </select>
+              </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users">
+              <td>
+                <input id="{{user.id}}" type="checkbox" value="{{user.id}}" ng-checked="selection.indexOf(user.id) > -1" ng-click="toggleSelection(user.id)" />
+              </td>
+              <td>
+                <a ui-sref="users.details({id:user.id})"><img ng-src="{{getImageWithSize(user._picture,32,true)}}"class="img-thumbnail pull-left" height="32" width="32"        fallback-src loading-src style="margin-right: 10px"/>
+                </a>
+                <a ui-sref="users.details({id:user.id})" style="line-height: 32px;"><b>{{getDisplayName(user)}}</b></a>
+              </td>
+              <td>{{user.created | date : format : timezone}}</td>
+              <td class="uppercase">{{user.currentDevice}}</td>
+              <td ng-init="domain=user.domainEmail">{{user._fitness.stepsToday}}</td>
+              <td>{{user.goal}}</td>
+              <td>{{user._fitness.totalSteps}}</td>
+              <!-- <td><div>{{user.domainEmail}}</div>{{user.email}}</td> -->
+              <td>{{user._fitness.averageSteps}}</td>
+              <td>{{user.lastAppOpened | date : format : timezone}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <pagination ng-model="page" total-items="totalItems" items-per-page="pageSize" max-size="10" ng-change="pageChanged()">
+          </pagination>
+          </div>
+      </div>
+    </div>
+    <!-- End: life time stats -->
+  </div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS -->
+<script>
+  //  TableAjax.init();
+</script>
+<!-- END MAIN JS -->

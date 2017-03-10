@@ -1,0 +1,443 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a ui-sref="home">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="users.list">Users</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="users.create">{{subPage}}</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+              data-toggle="dropdown" dropdown-menu-hover data-delay="1000"
+              data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li ui-sref-active="active">
+          <a ui-sref="users.create">
+            <i class="icon-plus"></i> New User </a>
+        </li>
+        <li class="divider">
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.list({status:'pending',revisions:undefined})">
+            <i class="icon-flag"></i> Pending <span
+            class="badge badge-danger">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.list({status:undefined,revisions:'pending'})">
+            <i class="icon-users"></i> Revisions <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="users.list({status:undefined,revisions:undefined})">
+            <i class="icon-users"></i> All <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<a data-toggle="modal" data-target="#myModalManualSteps">
+  <button type="button" class="btn btn-block btn-info" style="width: 16%; float:right; margin: 20px 0px 0px 22px;">Enter Manual Steps</button>
+</a>
+<h3 class="page-title">
+  {{subPage}} User
+</h3>
+<!-- END PAGE HEADER-->
+<div class="row">
+  <div class="col-md-6">
+    <!-- BEGIN Portlet PORTLET-->
+    <div class="portlet light" id="user_details_form_portlet">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-speech"></i>
+          <span class="caption-subject bold uppercase"> {{subPage}}</span>
+          <span class="caption-helper">User</span>
+        </div>
+        <div class="actions">
+          <!--<a href="javascript:;" ng-hide="editMode" ui-sref="users.details.edit({id:user.id})"
+             class="btn btn-circle btn-default" ui-sref-active="active">
+            <i class="fa fa-pencil"></i> Edit </a>-->
+          <a href="javascript:;" ng-show="editMode" class="btn btn-circle btn-danger" ng-click="cancelEdit()">
+            <i class="fa fa-close"></i> Cancel </a>
+          <a href="javascript:;" ng-show="editMode" class="btn btn-circle btn-primary" ng-click="save(user)"
+             ng-disabled="submitDisabled()">
+            <i class="fa fa-check"></i> Save </a>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title=""
+             title="">
+          </a>
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <form class="form-horizontal" role="form" name="userForm">
+          <div class="form-body">
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="movement-image-holder">
+                  <a href="javascript:;" ng-click="openTab(user._picture.url)" target="_blank"><img
+                    ng-src="{{getImageWithSize(user._picture,300)}}" class="img-thumbnail movement-image"
+                    width="100%" fallback-src
+                    loading-src/></a>
+                  <button class="btn bg-transparent text-white movement-image-edit-btn"
+                          ng-click="clickToOpen()" ng-if="editMode"><span class="fa fa-pencil fa-3x"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group" ng-hide="editMode">
+                  <div class="input-group">
+                    <h4><b>{{getDisplayName(user)}}</b></h4>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                  <span class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                        </span>
+                    <input type="text" class="form-control" placeholder="Enter username"
+                           ng-model="user.username" ng-disabled="!editMode">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-envelope"></i>
+                        </span>
+                    <input name="email" type="email" class="form-control" placeholder="Enter user email"
+                           ng-model="user.email" ng-disabled="!editMode" ng-required="true" required>
+                    <span ng-show="editMode && userForm.email.$valid" class="glyphicon glyphicon-ok validate userForm"></span>
+                    <span ng-show="editMode && userForm.email.$invalid" class="glyphicon glyphicon-remove validate userForm"></span>
+                  </div>
+                </div>
+                <div class="form-group" ng-if="editMode">
+                  <div class="input-group">
+                  <span class="input-group-addon">
+                        <i class="fa fa-key"></i>
+                        </span>
+                    <input name="password" type="password" class="form-control" placeholder="Enter password"
+                           ng-model="user.password" ng-disabled="!editMode" ng-required="true" required>
+                    <span ng-show="editMode && userForm.password.$valid" class="glyphicon glyphicon-ok validate userForm"></span>
+                    <span ng-show="editMode && userForm.password.$invalid" class="glyphicon glyphicon-remove validate userForm"></span>
+
+                  </div>
+                </div>
+                <div class="form-group" ng-if='domainUser'>
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-fw fa-envelope"></i>
+                     </span>
+                    <input class="form-control" ng-model='user.domainEmail' placeholder="Enter work email" ng-disabled="!editMode" ng-required="true" style="width: 50%;">
+                      <select  ng-if="editMode" ng-model="domain.user" class="form-control" ng-options="domain for domain in domains" style="padding: 0px 0px 0px 0px;margin: 0px 0px 0px 2px;width: 49%;" ng-disabled="!editMode" ng-required='true'>
+                        <option value="">Select Domain</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label"><b>Roles</b></label>
+
+                  <div class="col-sm-8">
+                    <div style="line-height: 32px;">
+                      <span ng-repeat="role in user.roles" class="badge">{{role.name}}</span>
+                      <span ng-if="isNotSelf(user)">
+                      <button class="btn btn-sm btn-primary btn-circle" ng-if="!isAdmin(user)"
+                              ng-click="makeAdmin(user)"><span
+                        class="fa fa-plus"></span> Add Admin Role
+                      </button>
+                      <button class="btn btn-sm btn-danger btn-circle" ng-if="isAdmin(user)"
+                              ng-click="removeAdmin(user)"><span
+                        class="fa fa-close"></span> Remove Admin Role
+                      </button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" ng-hide="editMode" ng-if="enterpriseAdmin">
+                  <label class="col-sm-4 control-label"><b>Access</b></label>
+
+                  <div class="col-sm-8">
+                    <div style="line-height: 32px;">
+                      <span ng-if="isNotSelf(user)">
+                      <button class="btn btn-sm btn-danger btn-circle"
+                              ng-click="removeUser(user)"><span
+                        class="fa fa-close"></span> Remove User
+                      </button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <!-- PORTLET MAIN -->
+    <div class="portlet light">
+      <!-- STAT -->
+      <div class="row list-separated profile-stat">
+        <div class="col-md-2 col-sm-2 col-xs-6">
+          <div class="uppercase profile-stat-title">
+            {{userStats.memberships || 0}}
+          </div>
+          <div class="uppercase profile-stat-text">
+            TEAMS
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="uppercase profile-stat-title">
+            {{user._fitness.stepsToday || 0}}
+          </div>
+          <div class="uppercase profile-stat-text">
+            Steps Today
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-6">
+          <div class="uppercase profile-stat-title">
+            {{totalWeeklySteps || 0}}
+          </div>
+          <a data-toggle="modal" data-target="#myModal">
+            <div class="uppercase profile-stat-text" ng-init='dailySummeries(user.id)'>
+              Weekly Steps
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="profile-stat-title">
+            {{user.currentDevice}}
+          </div>
+          <div class="uppercase profile-stat-text">
+            Device
+          </div>
+        </div>
+      </div>
+
+      <!-- END STAT -->
+      <div class="row" ng-if="userMemberships.length">
+        <div class="col-md-12">
+          <h3>Teams</h3>
+
+          <!-- <div class="item" ng-repeat="member in userMemberships">
+             <div class="item-head">
+               <div class="item-details">
+                 <img class="item-pic" ng-src="{{activity.actor._picture.url}}" fallback-src loading-src>
+                 <a href="" class="item-name primary-link">{{activity.actor.username}}</a>
+                 <span class="item-label" am-time-ago="activity.created"></span>
+               </div>
+               &lt;!&ndash; <span class="item-status"><span class="badge badge-empty badge-success"></span> Open</span> &ndash;&gt;
+             </div>
+             <div class="item-body" style="padding-left: 50px;">
+               {{activity.text}}
+               <img ng-src="{{activity._picture.url}}" class="img-thumbnail" ng-show="activity._picture.url"
+                    fallback-src loading-src
+                    width="100%"/>
+             </div>
+           </div>-->
+
+
+          <div class="table-scrollable table-scrollable-borderless">
+            <table class="table table-hover table-light">
+              <thead>
+              <tr class="uppercase">
+                <th colspan="2">
+                  TEAM
+                </th>
+                <th>
+                  STEPS
+                </th>
+                <th>
+                  MEMBERS
+                </th>
+                <th>
+                  JOINED
+                </th>
+                <th>
+                  AVG STEPS
+                </th>
+              </tr>
+              </thead>
+              <tr ng-repeat="membership in userMemberships">
+                <td class="fit">
+                  <img class="user-pic" ng-src="{{getImageWithSize(membership.movement._picture,32)}}" fallback-src
+                       loading-src>
+                </td>
+                <td>
+                  <a ui-sref="movements.details({id:membership.movement.id})" class="primary-link">{{membership.movement.title}}</a>
+                </td>
+                <td>
+                  {{membership.totalSteps}}
+                </td>
+                <td>
+                  {{membership.movement.memberCount}}
+                </td>
+                <td>
+                  <span am-time-ago="membership.joinDate"/>
+                </td>
+                <td>
+                  <span class="bold theme-font">{{averageSteps(membership)}}</span>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- END Portlet PORTLET-->
+  <div class="col-md-6" ng-show="!(isCreate)">
+    <div class="portlet light">
+      <div class="portlet-title">
+        <div class="caption caption-md">
+          <i class="icon-bar-chart theme-font hide"></i>
+          <span class="caption-subject font-blue-madison bold uppercase">User Timeline</span>
+          <!-- <span class="caption-helper">45 pending</span> -->
+        </div>
+        <div class="inputs">
+          <div class="portlet-input input-inline input-small ">
+            <div class="input-icon right">
+              <i class="icon-magnifier"></i>
+              <input type="text" class="form-control form-control-solid" placeholder="search...">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <!-- <div class="scroller" data-always-visible="1" data-rail-visible1="0"
+        data-handle-color="#D7DCE2"> -->
+
+        <div class="general-item-list">
+          <div class="item" id="user-add-post-item">
+            <textarea class="form-control" placeholder="Share something with user members..."
+                      ng-model="newPost.text" ng-change="notify.message=newPost.text"></textarea>
+            <hr>
+            <img ng-src="{{newPost._picture.url}}" width="100%" ng-if="newPost._picture" class="img-thumbnail"
+                 fallback-src loading-src/>
+
+            <div class="">
+              <a href="javascript:;" class="btn btn-circle btn-primary pull-right" ng-click="addPost(newPost,notify)"
+                 ng-disabled="false">POST</a>
+              <button class="btn btn-circle bg-transparent text-white pull-right" style="margin-right: 10px;"
+                      ng-click="addPictureToPost()"><span class="fa fa-camera fa-3x"></span>
+              </button>
+              <div class="pull-right">
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="pushNotify"> Push Notification
+                </label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+
+          <div class="item" ng-repeat="activity in userActivities">
+            <div class="item-head">
+              <div class="item-details">
+                <img class="item-pic" ng-src="{{getImageWithSize(activity.actor._picture,32,true)}}" fallback-src
+                     loading-src>
+                <a ui-sref="users.details({id:activity.actor.id})" class="item-name primary-link">{{getDisplayName(activity.actor)}}</a>
+                <span class="item-label" am-time-ago="activity.created"></span>
+              </div>
+              <!-- <span class="item-status"><span class="badge badge-empty badge-success"></span> Open</span> -->
+            </div>
+            <div class="item-body" style="padding-left: 50px;">
+              {{activity.text}}
+              <img ng-src="{{activity._picture.url}}" class="img-thumbnail" ng-show="activity._picture.url"
+                   fallback-src loading-src
+                   width="100%"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="width: 117%;margin: 0px 0px 0px -70px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" class="box-title">Weekly Steps</h4>
+      </div>
+      <div class="modal-body">
+      <div class="box" >
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Date</th>
+                    <th>Total Steps</th>
+                    <th>Hourly Steps</th>
+                  </tr>
+                  <tr ng-repeat='summery in dailySummeries'>
+                    <td>{{summery.date | date : format : timezone}}</td>
+                    <td>{{summery.totalSteps}}</td>
+                    <td>{{summery.hourly}}</td>
+                  </tr>
+              </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="myModalManualSteps" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="width: 50%;margin: 150px 0px 0px 195px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" class="box-title">Select the date for which you want to enter the steps</h4>
+      </div>
+      <div class="modal-body">
+      <div>Enter Date: <input type="date" style="height: 29px;" ng-model="manualStepsDate"></div></br>
+      <div>Enter Steps: <input type="number" style="height: 29px;width: 147px;" ng-model="manualSteps"></div>
+      <button type="button" class="btn btn-block btn-info" style="width: 16%; margin: 20px 0px 0px 89px;" ng-click='addManualSteps()' >Submit</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div ui-view></div>
+
+
+

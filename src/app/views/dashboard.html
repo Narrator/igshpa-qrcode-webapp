@@ -1,0 +1,268 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a href="#/dashboard.html">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">Dashboard</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+              data-toggle="dropdown" dropdown-menu-hover data-delay="1000"
+              data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li ui-sref-active="active">
+          <a ui-sref="members.create">
+            <i class="icon-plus"></i> New Member </a>
+        </li>
+        <!--<li ui-sref-active="active">
+          <a ui-sref="users.create">
+            <i class="icon-plus"></i> New User </a>
+        </li>-->
+        <!--<li>
+          <a href="#">
+            <i class="icon-present"></i> New Event <span
+            class="badge badge-success">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-basket"></i> New order </a>
+        </li>-->
+        <!--<li class="divider">
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:'pending',revisions:undefined})">
+            <i class="icon-flag"></i> Pending <span
+            class="badge badge-danger">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:undefined,revisions:'pending'})">
+            <i class="icon-users"></i> Revisions <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="movements.list({status:undefined,revisions:undefined})">
+            <i class="icon-users"></i> All <span
+            class="badge badge-warning">12</span>
+          </a>
+        </li>-->
+      </ul>
+    </div>
+  </div>
+</div>
+<h3 class="page-title">
+  Dashboard
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div>
+  <div class="row">
+  </div>
+</div>
+
+<div>
+  <div class="row">
+    <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="dashboard-stat blue-madison">
+        <div class="visual">
+          <i class="fa fa-comments"></i>
+        </div>
+        <div class="details">
+          <div class="number">
+            &nbsp;{{campaigns.count}}
+          </div>
+          <div class="desc">
+            Campaigns
+          </div>
+        </div>
+        <a class="more" href="javascript:;" ui-sref="campaigns.list({})">
+          View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="dashboard-stat red-intense">
+        <div class="visual">
+          <i class="fa fa-bar-chart-o"></i>
+        </div>
+        <div class="details">
+          <div class="number">
+            &nbsp;{{totalSignatures.count}}
+          </div>
+          <div class="desc">
+            Total Signatures
+          </div>
+        </div>
+        <a class="more" href="javascript:;" ui-sref="campaigns.list({})">
+          View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+      </div>
+    </div>-->
+    <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="dashboard-stat green-haze">
+        <div class="visual">
+          <i class="fa fa-shopping-cart"></i>
+        </div>
+        <div class="details">
+          <div class="number">
+            &nbsp; ####
+          </div>
+          <div class="desc">
+            Some Statistic
+          </div>
+        </div>
+        <a class="more">
+          View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+      </div>
+    </div>-->
+    <!-- <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+      <div class="dashboard-stat purple-plum">
+        <div class="visual">
+          <i class="fa fa-globe"></i>
+        </div>
+        <div class="details">
+          <div class="number">
+            &nbsp;{{stepsIncrease}}
+          </div>
+          <div class="desc">
+            Contributions
+            Today
+          </div>
+        </div>
+        <a class="more" href="#">
+          View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+      </div>
+    </div> -->
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="dashboard-stat purple-plum">
+        <div class="visual">
+          <i class="fa fa-globe"></i>
+        </div>
+        <div class="details">
+          <div class="number">
+            &nbsp;{{totalUsers}}
+          </div>
+          <div class="desc">
+            Total Users
+          </div>
+        </div>
+        <a class="more">
+          View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- END DASHBOARD STATS -->
+  <div class="row">
+
+    <!-- SIGNATURES -->
+    <div class="col-md-9 col-sm-12">
+      <!-- BEGIN PORTLET-->
+      <div class="portlet light tasks-widget">
+        <div class="portlet-title">
+          <div class="caption caption-md">
+            <i class="icon-bar-chart font-green-haze hide"></i>
+            <span
+              class="caption-subject font-green-haze bold uppercase">RECENT MEMBERS</span>
+          </div>
+          <!-- <div class="inputs">
+            <div class="portlet-input input-small input-inline">
+              <div class="input-icon right">
+                <i class="icon-magnifier"></i>
+                <input type="text" class="form-control form-control-solid"
+                       placeholder="search...">
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="portlet-body">
+          <div class="task-content">
+            <div class="scroller" data-always-visible="1"
+                 data-rail-visible1="0" data-handle-color="#D7DCE2">
+              <!-- START TASK LIST -->
+              <ul class="task-list">
+                <li ng-repeat="member in members" ng-click="handleUser(member)" style="cursor:pointer;">
+                    <div class="task-checkbox">
+                      <a href="" ng-click="handleUser(member)"> <span class="fa fa-lg fa-arrow-circle-right"></span></a>
+                    </div>
+                    <div class="task-title">
+                      <span class="task-title-sp" style="padding-left:5px;">{{member.firstName}} {{member.lastName}} from {{member.company}}</span>
+                      <span class="label label-sm" style="background-color: #45B6AF;" am-time-ago="member.created"/>
+                      <span class="task-bell">
+                      <i class="fa fa-bell-o"></i>
+                      </span>
+                    </div>
+                </li>
+
+
+                <!--
+                <li class="last-line">
+                  <div class="task-checkbox">
+                    <input type="checkbox" class="liChild" value=""/>
+                  </div>
+                  <div class="task-title">
+                    <span class="task-title-sp">
+                    KeenThemes Investment Discussion </span>
+                    <span
+                      class="label label-sm label-warning">KeenThemes </span>
+                  </div>
+                  <div class="task-config">
+                    <div class="task-config-btn btn-group">
+                      <a class="btn btn-xs default" href="javascript:;"
+                         data-toggle="dropdown" dropdown-menu-hover
+                         data-close-others="true">
+                        <i class="fa fa-cog"></i><i
+                        class="fa fa-angle-down"></i>
+                      </a>
+                      <ul class="dropdown-menu pull-right">
+                        <li>
+                          <a href="javascript:;">
+                            <i class="fa fa-check"></i> Complete </a>
+                        </li>
+                        <li>
+                          <a href="javascript:;">
+                            <i class="fa fa-pencil"></i> Edit </a>
+                        </li>
+                        <li>
+                          <a href="javascript:;">
+                            <i class="fa fa-trash-o"></i> Cancel </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>-->
+              </ul>
+              <!-- END START TASK LIST -->
+            </div>
+          </div>
+          <!-- <div class="task-footer">
+            <div class="btn-arrow-link pull-right">
+              <a href="javascript:;">See All Tasks</a>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- END PORTLET-->
+    </div>
+  </div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<!--<script>
+  Index.init();
+  Tasks.initDashboardWidget();
+</script>-->
+<!-- BEGIN MAIN JS & CSS -->

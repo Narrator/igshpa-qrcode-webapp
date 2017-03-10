@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
+Version: 3.9.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js" data-ng-app="VettiverFaxApp"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js" data-ng-app="VettiverFaxApp"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" data-ng-app="VettiverFaxApp">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<title data-ng-bind="'Vettiver Fax Petitions | ' + $state.current.data.pageTitle"></title>
+
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+  <!-- build:css({.tmp/serve,src}) styles/app.css -->
+
+  <!-- BEGIN PAGE LEVEL STYLES -->
+  <link href="assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+  <!-- END PAGE LEVEL SCRIPTS -->
+  <!-- BEGIN THEME STYLES -->
+  <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+  <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+  <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+  <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+  <link href="/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+
+  <!-- END THEME STYLES -->
+  <!-- inject:css -->
+  <!-- css files will be automatically insert here -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body style="background-color:#F1F3FA;" ng-controller="MainCtrl" class="page-header-fixed page-sidebar-closed-hide-logo page-quick-sidebar-over-content page-on-load" ng-class="{'page-container-bg-solid': settings.layout.pageBodySolid, 'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+
+
+<!-- BEGIN PAGE SPINNER -->
+<div ng-spinner-bar class="page-spinner-bar">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>
+<!-- END PAGE SPINNER -->
+
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN LOGO -->
+<div class="page-logo">
+  <a class="logo-default" href="#/">
+    <img style="width:200px;height:auto;margin-left:25px;" src="/assets/images/logo.gif" alt="logo" class="logo-default"/>
+  </a>
+</div>
+<!-- END LOGO -->
+<!-- END PAGE HEADER-->
+
+<div class="clearfix">
+</div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container" style="margin-top:0px;" ng-controller="PublicCtrl">
+
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper" style="margin-top:0px;">
+    <div class="page-content" style="margin-left:0px;background: url('/assets/images/bg.jpg') #364150;">
+
+      <!-- BEGIN ACTUAL CONTENT -->
+      <!-- BEGIN MAIN CONTENT -->
+      <div>
+        <div class="row">
+        </div>
+      </div>
+
+      <div>
+        <div class="row">
+
+          <!-- SIGNATURES -->
+          <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light" id="campaign_details_form_portlet">
+              <div class="portlet-title">
+                <div>
+                  <h3 class="caption-subject bold uppercase" style="margin-top:5px;color:red;"><span>{{campaign.title}}</span>
+                  </h3>
+                </div>
+              </div>
+              <div class="portlet-body form">
+                <form class="form-horizontal" role="form" name="campaignForm">
+                  <div class="form-body">
+                    <div class="col-md-12">
+                      <div class="movement-image-holder">
+                        <a href="javascript:;" ng-click="openTab(campaign._picture.url)" target="_blank"><img
+                          ng-src="{{campaign._picture.url}}" class="img-thumbnail campaign-image"
+                          width="100%" fallback-src
+                          loading-src/></a>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top:20px;">
+                      <p ng-bind-html="campaign.description"></p>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-8">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+            <!-- END PORTLET-->
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light" id="campaign_details_form_portlet">
+              <div class="portlet-title">
+                <div>
+                  <h4 class="caption-subject bold uppercase" style="margin-top:5px;"><span>{{campaign.faxTo}},</span>
+                  </h4>
+                </div>
+              </div>
+              <div class="portlet-body form">
+                <form id="signature" class="form-horizontal" role="form" name="campaignForm" ng-submit="save(signature)">
+                  <div class="form-body">
+
+                    <div class="col-md-12">
+                      <p ng-bind-html="campaign.faxBody"></p>
+                    </div>
+
+                    <div class="form-group" style="margin-top:75px;">
+                      <label class="col-sm-4 control-label"><b>First Name</b><span style="color:red;"> *</span></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <input type="text" class="form-control" placeholder="First Name"
+                                 ng-model="signature.firstName" required>
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"><b>Last Name</b><span style="color:red;"> *</span></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <input type="text" class="form-control" placeholder="Last Name"
+                                 ng-model="signature.lastName" required>
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"><b>Email</b><span style="color:red;"> *</span></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <input type="email" class="form-control" placeholder="Email"
+                                 ng-model="signature.email" required>
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"><b>Postal Code</b><span style="color:red;"> *</span></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <input type="number" class="form-control" placeholder="Postal Code"
+                                 ng-model="signature.postalCode" required>
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"><b>Phone No.</b></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <input type="number" class="form-control" placeholder="Phone No."
+                                 ng-model="signature.phone">
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label"><b>Country</b><span style="color:red;"> *</span></label>
+                      <div class="col-sm-6">
+                        <div class="input-group">
+                          <!--<span class="input-group-addon">
+                                <i class="fa fa-dot-circle-o"></i>
+                                </span>-->
+                          <select name="country" ng-model="signature.country" class="form-control select2" required>
+                            <option value="AF">Afghanistan</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algeria</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AD">Andorra</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AQ">Antarctica</option>
+                            <option value="AR">Argentina</option>
+                            <option value="AM">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbaijan</option>
+                            <option value="BS">Bahamas</option>
+                            <option value="BH">Bahrain</option>
+                            <option value="BD">Bangladesh</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BY">Belarus</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermuda</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BA">Bosnia and Herzegowina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BV">Bouvet Island</option>
+                            <option value="BR">Brazil</option>
+                            <option value="IO">British Indian Ocean Territory</option>
+                            <option value="BN">Brunei Darussalam</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="KH">Cambodia</option>
+                            <option value="CM">Cameroon</option>
+                            <option value="CA">Canada</option>
+                            <option value="CV">Cape Verde</option>
+                            <option value="KY">Cayman Islands</option>
+                            <option value="CF">Central African Republic</option>
+                            <option value="TD">Chad</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">China</option>
+                            <option value="CX">Christmas Island</option>
+                            <option value="CC">Cocos (Keeling) Islands</option>
+                            <option value="CO">Colombia</option>
+                            <option value="KM">Comoros</option>
+                            <option value="CG">Congo</option>
+                            <option value="CD">Congo, the Democratic Republic of the</option>
+                            <option value="CK">Cook Islands</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="CI">Cote d'Ivoire</option>
+                            <option value="HR">Croatia (Hrvatska)</option>
+                            <option value="CU">Cuba</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="DK">Denmark</option>
+                            <option value="DJ">Djibouti</option>
+                            <option value="DM">Dominica</option>
+                            <option value="DO">Dominican Republic</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="EG">Egypt</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GQ">Equatorial Guinea</option>
+                            <option value="ER">Eritrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="FK">Falkland Islands (Malvinas)</option>
+                            <option value="FO">Faroe Islands</option>
+                            <option value="FJ">Fiji</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GF">French Guiana</option>
+                            <option value="PF">French Polynesia</option>
+                            <option value="TF">French Southern Territories</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia</option>
+                            <option value="GE">Georgia</option>
+                            <option value="DE">Germany</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Greece</option>
+                            <option value="GL">Greenland</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GP">Guadeloupe</option>
+                            <option value="GU">Guam</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="GN">Guinea</option>
+                            <option value="GW">Guinea-Bissau</option>
+                            <option value="GY">Guyana</option>
+                            <option value="HT">Haiti</option>
+                            <option value="HM">Heard and Mc Donald Islands</option>
+                            <option value="VA">Holy See (Vatican City State)</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="HU">Hungary</option>
+                            <option value="IS">Iceland</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="IR">Iran (Islamic Republic of)</option>
+                            <option value="IQ">Iraq</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IL">Israel</option>
+                            <option value="IT">Italy</option>
+                            <option value="JM">Jamaica</option>
+                            <option value="JP">Japan</option>
+                            <option value="JO">Jordan</option>
+                            <option value="KZ">Kazakhstan</option>
+                            <option value="KE">Kenya</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="KP">Korea, Democratic People's Republic of</option>
+                            <option value="KR">Korea, Republic of</option>
+                            <option value="KW">Kuwait</option>
+                            <option value="KG">Kyrgyzstan</option>
+                            <option value="LA">Lao People's Democratic Republic</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LB">Lebanon</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libyan Arab Jamahiriya</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MO">Macau</option>
+                            <option value="MK">Macedonia, The Former Yugoslav Republic of</option>
+                            <option value="MG">Madagascar</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="MV">Maldives</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MH">Marshall Islands</option>
+                            <option value="MQ">Martinique</option>
+                            <option value="MR">Mauritania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="YT">Mayotte</option>
+                            <option value="MX">Mexico</option>
+                            <option value="FM">Micronesia, Federated States of</option>
+                            <option value="MD">Moldova, Republic of</option>
+                            <option value="MC">Monaco</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MA">Morocco</option>
+                            <option value="MZ">Mozambique</option>
+                            <option value="MM">Myanmar</option>
+                            <option value="NA">Namibia</option>
+                            <option value="NR">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="AN">Netherlands Antilles</option>
+                            <option value="NC">New Caledonia</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NU">Niue</option>
+                            <option value="NF">Norfolk Island</option>
+                            <option value="MP">Northern Mariana Islands</option>
+                            <option value="NO">Norway</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua New Guinea</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Peru</option>
+                            <option value="PH">Philippines</option>
+                            <option value="PN">Pitcairn</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="QA">Qatar</option>
+                            <option value="RE">Reunion</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russian Federation</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="KN">Saint Kitts and Nevis</option>
+                            <option value="LC">Saint LUCIA</option>
+                            <option value="VC">Saint Vincent and the Grenadines</option>
+                            <option value="WS">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="ST">Sao Tome and Principe</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="SN">Senegal</option>
+                            <option value="SC">Seychelles</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapore</option>
+                            <option value="SK">Slovakia (Slovak Republic)</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SB">Solomon Islands</option>
+                            <option value="SO">Somalia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="GS">South Georgia and the South Sandwich Islands</option>
+                            <option value="ES">Spain</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="SH">St. Helena</option>
+                            <option value="PM">St. Pierre and Miquelon</option>
+                            <option value="SD">Sudan</option>
+                            <option value="SR">Suriname</option>
+                            <option value="SJ">Svalbard and Jan Mayen Islands</option>
+                            <option value="SZ">Swaziland</option>
+                            <option value="SE">Sweden</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="SY">Syrian Arab Republic</option>
+                            <option value="TW">Taiwan, Province of China</option>
+                            <option value="TJ">Tajikistan</option>
+                            <option value="TZ">Tanzania, United Republic of</option>
+                            <option value="TH">Thailand</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trinidad and Tobago</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="TM">Turkmenistan</option>
+                            <option value="TC">Turks and Caicos Islands</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="US">United States</option>
+                            <option value="UM">United States Minor Outlying Islands</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="VE">Venezuela</option>
+                            <option value="VN">Viet Nam</option>
+                            <option value="VG">Virgin Islands (British)</option>
+                            <option value="VI">Virgin Islands (U.S.)</option>
+                            <option value="WF">Wallis and Futuna Islands</option>
+                            <option value="EH">Western Sahara</option>
+                            <option value="YE">Yemen</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                          </select>
+
+                        </div>
+                        <!--<span ng-show="editMode" class="help-block">
+                              A block of help text. </span>-->
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top:30px">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-8">
+                        <input value="SIGN" type="submit" class="btn btn-circle btn-danger">
+                      </div>
+                    </div>
+                    <!--<div class="form-group">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-8">
+                        <a href="{{campaign._faxFile.url}}" ng-if="campaign._faxFile" class="btn btn-circle btn-primary">
+                          Download Fax File</a> 
+                      </div>
+                    </div>-->
+                    <div class="portlet-title" style="margin-top:50px;">
+                      <div>
+                        <h4 class="caption-subject bold uppercase" style="margin-top:5px;"><span>Terms of the Fax Petition</span>
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <p>By signing this petition you agree to the fact that a fax document regarding the issue in question will be generated with your signature and sent to the office of: {{campaign.faxTo}} whose phone number(s) are as follows:</p>
+                        <ul ng-repeat="faxNumber in campaign.faxNumbers">
+                          <li>{{faxNumber}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-12">
+                        <a href="{{campaign._faxFile.url}}" ng-if="campaign._faxFile" class="btn btn-circle btn-primary">
+                          Download Fax Document</a> 
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- END PORTLET-->
+          </div>
+        </div>
+      </div>
+      <!-- END ACTUAL CONTENT -->
+    </div>
+  </div>
+  <!-- END CONTENT -->
+
+</div>
+<!-- END CONTAINER -->
+
+<!-- BEGIN FOOTER -->
+<div data-ng-include="'app/tpl/footer.html'" data-ng-controller="FooterCtrl" class="page-footer">
+</div>
+<!-- END FOOTER -->
+
+
+
+
+<!-- build:js(src) scripts/vendor.js -->
+<!-- bower:js -->
+<!-- run `gulp inject` to automatically populate bower script dependencies -->
+<!-- endbower -->
+<!-- endbuild -->
+
+
+
+
+<!-- build:js(src) scripts/ie9.js -->
+<!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+
+<!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
+<script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/login.js" type="text/javascript"></script>
+<!-- END APP LEVEL JQUERY SCRIPTS -->
+<!-- END JAVASCRIPTS -->
+<script type="text/javascript">
+  /* Init Metronic's core jquery plugins and layout scripts */
+  $(document).ready(function() {
+    Metronic.init(); // Run metronic theme
+//    Layout.init(); // init current layout
+    Metronic.setAssetsPath('assets/'); // Set the assets folder path
+//    Login.init();
+//    Demo.init();
+  });
+</script>
+<!-- inject:js -->
+<!-- js files will be automatically insert here -->
+<!-- endinject -->
+
+<!-- inject:partials -->
+<!-- angular templates will be automatically converted in js and inserted here -->
+<!-- endinject -->
+<!-- endbuild -->
+
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+
+
+</body>
+<!-- END BODY -->
+</html>

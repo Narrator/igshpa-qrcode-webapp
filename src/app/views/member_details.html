@@ -1,0 +1,398 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a ui-sref="home">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="members.list">Members</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a ui-sref="members.create">{{subPage}}</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+              data-toggle="dropdown" dropdown-menu-hover data-delay="1000"
+              data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li ui-sref-active="active">
+          <a ui-sref="members.create">
+            <i class="icon-plus"></i> New Member </a>
+        </li>
+        <!--<li>
+          <a href="#">
+            <i class="icon-present"></i> New Event <span
+            class="badge badge-success">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-basket"></i> New order </a>
+        </li>-->
+        <li class="divider">
+        </li>
+        <!--<li>
+          <a href="javascript:;" ui-sref="members.list({status:'pending',revisions:undefined})">
+            <i class="icon-flag"></i> Pending
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" ui-sref="members.list({status:undefined,revisions:undefined})">
+            <i class="icon-users"></i> All
+          </a>
+        </li>-->
+      </ul>
+    </div>
+  </div>
+</div>
+<h3 class="page-title">
+  {{subPage}} Member
+</h3>
+<!-- END PAGE HEADER-->
+<div class="row">
+  <div class="col-md-6">
+    <!-- BEGIN Portlet PORTLET-->
+    <div class="portlet light" id="member_details_form_portlet">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-speech"></i>
+          <span class="caption-subject bold uppercase"> {{subPage}}</span>
+          <span class="caption-helper">Member</span>
+        </div>
+        <div class="actions">
+          <a href="javascript:;" ng-hide="editMode" ui-sref="members.details.edit({id:member.id})"
+             class="btn btn-circle btn-default" ui-sref-active="active">
+            <i class="fa fa-pencil"></i> Edit </a>
+          <a href="javascript:;" ng-show="editMode" class="btn btn-circle btn-danger" ng-click="cancelEdit()">
+            <i class="fa fa-close"></i> Cancel </a>
+          <a href="javascript:;" ng-show="editMode" class="btn btn-circle btn-primary" ng-click="save(member)"
+             ng-disabled="submitDisabled()">
+            <i class="fa fa-check"></i> Save </a>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title=""
+             title="">
+          </a>
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <form class="form-horizontal" role="form" name="memberForm">
+          <div class="form-body">
+            <div class="form-group">
+              <div class="col-md-12">
+              <div ng-show="isChanged()" type="warning" class="alert ng-isolate-scope alert-warning" role="alert">
+                  <div><span class="ng-binding ng-scope">Save is enabled once you make changes</span>
+              </div>
+              </div>
+                <h3 style="margin-top:5px"><span ng-hide="editMode">{{member.firstName}} {{member.lastName}}</span>
+                  <input name="firstName" ng-show="editMode" ng-model="member.firstName" class="form-control"
+                         placeholder="Enter member's first name" ng-required="true" ng-minlength="1" required>
+                  <span ng-show="editMode &&  ((!memberForm.firstName.$error.minlength && member.firstName.length) || memberForm.firstName.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span ng-show="editMode && (memberForm.firstName.$error.minlength || memberForm.firstName.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                  </br>
+                  <input name="lastName" ng-show="editMode" ng-model="member.lastName" class="form-control"
+                         placeholder="Enter member's last name" ng-required="true" ng-minlength="1" required>
+                  <span ng-show="editMode &&  ((!memberForm.lastName.$error.minlength && member.lastName.length) || memberForm.lastName.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span ng-show="editMode && (memberForm.lastName.$error.minlength || memberForm.lastName.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                  </input>
+                </h3>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Badge Name</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.nickName}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+												<i class="fa fa-dot-circle-o"></i>
+												</span>
+                  <input name="nickName" type="text" class="form-control" placeholder="Enter Badge Name"
+                         ng-model="member.nickName" ng-minlength="1" required>
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.nickName.$error.minlength && member.nickName.length) || memberForm.nickName.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.nickName.$error.minlength || memberForm.nickName.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+											A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Company</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle; line-height:1em;display:block;">{{member.company}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="company" type="text" class="form-control" placeholder="Enter Company Name"
+                         ng-model="member.company" ng-minlength="1">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.company.$error.minlength && member.company.length) || memberForm.company.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.company.$error.minlength || memberForm.company.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Title</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.title}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="title" type="text" class="form-control" placeholder="Enter Title"
+                         ng-model="member.title">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.title.$error.minlength && member.title.length) || memberForm.title.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.title.$error.minlength || memberForm.title.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Address</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.address}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="address" type="text" class="form-control" placeholder="Enter Address"
+                         ng-model="member.address">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.address.$error.minlength && member.address.length) || memberForm.address.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.address.$error.minlength || memberForm.address.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>City</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.city}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="city" type="text" class="form-control" placeholder="Enter City Name"
+                         ng-model="member.city">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.city.$error.minlength && member.city.length) || memberForm.city.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.city.$error.minlength || memberForm.city.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>State</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.state}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="state" type="text" class="form-control" placeholder="Enter State Name"
+                         ng-model="member.state">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.state.$error.minlength && member.state.length) || memberForm.state.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.state.$error.minlength || memberForm.state.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Zip</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.zip}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="zip" type="text" class="form-control" placeholder="Enter Zip Code"
+                         ng-model="member.zip">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.zip.$error.minlength && member.zip.length) || memberForm.zip.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.zip.$error.minlength || memberForm.zip.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Country</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.country}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="country" type="text" class="form-control" placeholder="Enter Country Name"
+                         ng-model="member.country">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.country.$error.minlength && member.country.length) || memberForm.country.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.country.$error.minlength || memberForm.country.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Phone 1</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.phone1}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="phone1" type="text" class="form-control" placeholder="Enter Phone Number"
+                         ng-model="member.phone1">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.phone1.$error.minlength && member.phone1.length) || memberForm.phone1.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.phone1.$error.minlength || memberForm.phone1.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Phone 2</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.phone2}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="phone2" type="text" class="form-control" placeholder="Enter Phone Number"
+                         ng-model="member.phone2">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.phone2.$error.minlength && member.phone2.length) || memberForm.phone2.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.phone2.$error.minlength || memberForm.phone2.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Email</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.email}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="email" type="email" class="form-control" placeholder="Enter Email"
+                         ng-model="member.email">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.email.$error.minlength && member.email.length) || memberForm.email.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.email.$error.minlength || memberForm.email.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label"><b>Attendee Type</b></label>
+              <div class="col-sm-8">
+                <div ng-hide="editMode" style="vertical-align: middle; height:34px;line-height: 34px;">
+                  <i style="vertical-align: middle">{{member.attendeeType}}</i>
+                </div>
+
+
+                <div class="input-group" ng-show="editMode">
+                  <span class="input-group-addon">
+                        <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                  <input name="attendeeType" type="text" class="form-control" placeholder="Enter Attendee Type"
+                         ng-model="member.attendeeType">
+                  <span style="z-index:20;" ng-show="editMode &&  ((!memberForm.attendeeType.$error.minlength && member.attendeeType.length) || memberForm.attendeeType.$valid)" class="glyphicon glyphicon-ok validate"></span>
+                  <span style="z-index:20;" ng-show="editMode && (memberForm.attendeeType.$error.minlength || memberForm.attendeeType.$invalid)" class="glyphicon glyphicon-remove validate"></span>
+                </div>
+                <!--<span ng-show="editMode" class="help-block">
+                      A block of help text. </span>-->
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- END Portlet PORTLET-->
+  <div class="col-md-6" ng-show="!(isCreate || editMode)">
+    <div class="portlet light">
+      <div class="portlet-title">
+        <div class="caption">
+          <span class="caption bold uppercase">Badge</span>
+        </div>
+      </div>
+      <!-- STAT -->
+      <div class="row list-separated profile-stat">
+        <div ng-if="member.badgeGenerated" class="col-md-12">
+          <img width="100%" src="{{memberImg}}">
+        </div>
+        <div style="float:left;margin-top:25px;margin-left:12px">
+          <a class="btn btn-circle btn-primary" ng-click="generateBadge(member)">
+            Generate Badge
+          </a>
+        </div>
+        <div ng-if="member.badgeGenerated" style="float:left;margin-top:25px;margin-left:12px">
+          <a class="btn btn-circle btn-danger" ng-click="printBadge(member)">
+            Print Badge
+          </a>
+        </div>
+      </div>
+      <!-- END STAT -->
+    </div>
+  </div>
+</div>
+</div>
+<div ui-view></div>
+

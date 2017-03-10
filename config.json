@@ -1,0 +1,12 @@
+{
+  "local": {
+    "EnvironmentConfig": {
+      "API_URL": "http://localhost:4000/api"
+    }
+  },
+  "production": {
+    "EnvironmentConfig": {
+      "API_URL": "http://api-fax.vettiver.in/v1"
+    }
+  }
+}

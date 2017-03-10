@@ -1,0 +1,18 @@
+#/bin/bash -xe
+
+# ./subtask controller --component Header
+# ./subtask controller --component Header
+name=$2
+command="yo gulp-angular-subtask:$1 $name"
+if [ "$name" == "--component" ]; then
+  name=$3
+  lowercase_name=`echo $name | tr '[:upper:]' '[:lower:]'`
+  command="yo gulp-angular-subtask:$1 --dest app/components/$lowercase_name $name"
+fi
+if [ "$1" == "directive" ]; then
+  lowercase_name=`echo $name | tr '[:upper:]' '[:lower:]'`
+  command="yo gulp-angular-subtask:$1 --dest app/shared/$lowercase_name $name"
+fi
+echo $command
+$command
+

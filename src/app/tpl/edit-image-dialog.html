@@ -1,0 +1,31 @@
+<div  id='post-mascot-image'>
+<div class="modal-header dialog-header-confirm">
+  <button type="button" class="close">&times;</button>
+  <h4 class="modal-title">
+    <span class="glyphicon glyphicon-edit"></span> Edit Image
+  </h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-8">
+        <input image-upload type="file" ng-model="myImage" ng-click="callLoader()"></input>
+        <div class="jcrop-box">
+          <img imagecrop class="jcrop" ng-if="myImage" ng-src="{{myImage}}" />
+        </div>
+    </div>
+    <div class="col-md-4">
+      <h3>Cropped Image:</h3>
+      <canvas id="imageCanvas" width="{{cInst.width}}" height="{{cInst.height}}"></canvas>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="center-block text-center">
+    <button type="button" class="btn btn-default" ng-click="proceed()"
+            ng-show="showCroppedImage">Set Image
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="cancel()">Cancel
+    </button>
+  </div>
+</div>
+</div>
