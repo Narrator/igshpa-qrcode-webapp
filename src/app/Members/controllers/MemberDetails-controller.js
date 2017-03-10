@@ -65,10 +65,9 @@ angular.module('VettiverFaxApp').controller('MemberDetailsCtrl',
         var postData = {};
         if (member.username != 'igshpaAdmin') {
           var passString = Math.floor(Math.random()* 900000000);
-          postData['username'] = member.firstName + '-' + passString.toString();
+          postData['username'] =  'user-' + passString.toString();
           postData['password'] = passString.toString();
         }
-        console.log(member.firstName, member['firstName']);
         for (var property in member) {
           if (!member.hasOwnProperty(property)) {
             continue;
