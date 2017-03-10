@@ -6,7 +6,7 @@
   },
   "production": {
     "EnvironmentConfig": {
-      "API_URL": "http://api-fax.vettiver.in/v1"
+      "API_URL": " https://igshpa-qrcode.herokuapp.com/api"
     }
   }
 }
