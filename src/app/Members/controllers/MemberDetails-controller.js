@@ -187,12 +187,56 @@ angular.module('VettiverFaxApp').controller('MemberDetailsCtrl',
         var win = window.open("about:blank","_blank");
         win.document.write(html);
       };
+
+      function dataURItoBlob(dataURI, callback) {
+          // convert base64 to raw binary data held in a string
+          // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+          var byteString = atob(dataURI.split(',')[1]);
+
+          // separate out the mime component
+          var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+          // write the bytes of the string to an ArrayBuffer
+          var ab = new ArrayBuffer(byteString.length);
+          var ia = new Uint8Array(ab);
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+
+          // write the ArrayBuffer to a blob, and you're done
+          var bb = new Blob([ab]);
+          callback(bb);
+      }
+
+      var saveData = (function () {
+          var a = document.createElement("a");
+          document.body.appendChild(a);
+          a.style = "display: none";
+          return function (data, fileName) {
+              dataURItoBlob(data, function (blob) {
+                var url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+              });
+          };
+      }());
+
       $scope.generateBadge = function(member) {
         Member.prototype$generateBadge({
           id: member.id
         }, function onSuccess(updatedMember) {
           toastr.success('Badge has been succesfully generated');
-          $window.location.reload();
+          var imgUrl = $scope.apiUrl + "/members/" + member.id +
+            '/getImage?access_token=' + $scope.accessToken
+          toDataUrl(imgUrl, function(base64Img) {
+            saveData(base64Img, updatedMember.firstName + '-' +
+              updatedMember.lastName + '.png');
+            //window.location = base64Img;
+            //newWindow=window.open(base64Img, 'filename.png');
+          });
+          //$window.location.reload();
         }, function onError() {
           $log.error('error');
         });

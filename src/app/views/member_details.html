@@ -375,17 +375,9 @@
       </div>
       <!-- STAT -->
       <div class="row list-separated profile-stat">
-        <div ng-if="member.badgeGenerated" class="col-md-12">
-          <img width="100%" src="{{memberImg}}">
-        </div>
         <div style="float:left;margin-top:25px;margin-left:12px">
           <a class="btn btn-circle btn-primary" ng-click="generateBadge(member)">
-            Generate Badge
-          </a>
-        </div>
-        <div ng-if="member.badgeGenerated" style="float:left;margin-top:25px;margin-left:12px">
-          <a class="btn btn-circle btn-danger" ng-click="printBadge(member)">
-            Print Badge
+            Download Badge
           </a>
         </div>
       </div>
