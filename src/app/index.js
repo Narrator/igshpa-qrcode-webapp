@@ -139,12 +139,12 @@
             $rootScope.$broadcast('adminUserLoaded', $rootScope.currentUser);
           }, function onError() {
             window.location.href =
-              '/login.html#/?' + 'next=' + $location.absUrl();
+              'http://139.78.55.193/igshpa-qrcode-webapp/dist/login.html#/?' + 'next=' + $location.absUrl();
           });
         });
       }
       else {
-        window.location.href = '/login.html#/?' + 'next=' + $location.absUrl();
+        window.location.href = 'http://139.78.55.193/igshpa-qrcode-webapp/dist/login.html#/?' + 'next=' + $location.absUrl();
       }
 
       /**
@@ -184,7 +184,7 @@
       $rootScope.logout = function (event) {
         Member.logout(function onSuccess() {
           window.location.href =
-            '/login.html#/?' + 'next=' + $location.absUrl();
+            'http://139.78.55.193/igshpa-qrcode-webapp/dist/login.html#/?' + 'next=' + $location.absUrl();
         }, function (err) {
           $log.error('User logout error');
         });
