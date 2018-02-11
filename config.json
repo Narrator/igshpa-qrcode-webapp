@@ -6,7 +6,7 @@
   },
   "production": {
     "EnvironmentConfig": {
-      "API_URL": " https://igshpa-qrcode.herokuapp.com/api"
+      "API_URL": "http://139.78.55.193:4000/api"
     }
   }
 }
